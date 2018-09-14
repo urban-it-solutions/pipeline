@@ -1,6 +1,17 @@
-node('maven') {
-stage 'build'
-       openshiftBuild(buildConfig: 'frontend', showBuildLogs: 'true')
-       stage 'deploy'
-       openshiftDeploy(deploymentConfig: 'frontend')
-}
+try {
+   timeout(time: 20, unit: 'MINUTES') {
+      node('nodejs') {
+          stage('build') {
+            openshiftBuild(buildConfig: 'frontend', showBuildLogs: 'true')
+          }
+          stage('deploy') {
+            openshiftDeploy(deploymentConfig: 'frontend')
+          }
+        }
+   }
+} catch (err) {
+   echo "in catch block"
+   echo "Caught: ${err}"
+   currentBuild.result = 'FAILURE'
+   throw err
+}          
