@@ -2,10 +2,10 @@ try {
    timeout(time: 20, unit: 'MINUTES') {
       node('nodejs') {
           stage('build') {
-            openshiftBuild(buildConfig: 'frontend', showBuildLogs: 'true')
+            openshiftBuild(buildConfig: 'pipeline', showBuildLogs: 'true')
           }
           stage('deploy') {
-            openshiftDeploy(deploymentConfig: 'frontend')
+            openshiftDeploy(deploymentConfig: 'pipeline')
           }
         }
    }
