@@ -1,6 +1,6 @@
 node('maven') {
 stage 'build'
-       openshiftBuild(buildConfig: 'ruby-sample-build', showBuildLogs: 'true')
+       openshiftBuild(buildConfig: 'frontend', showBuildLogs: 'true')
        stage 'deploy'
        openshiftDeploy(deploymentConfig: 'frontend')
 }
